@@ -5,9 +5,11 @@ products and admin for managing the products and order details.
 
 ## Goals
 
-Laravel: Creating an Admin panel with the understanding of all the concepts such as integration 
+## Laravel:
+ Creating an Admin panel with the understanding of all the concepts such as integration 
 of themes, migrations, seeders, validations, ORM, API, Passport/ JWT token
-Vue : Creating an Customer panel with the understanding of all the concepts with the 
+## Vue :
+ Creating an Customer panel with the understanding of all the concepts with the 
 integration of themes, use of API’s
 
 ## 
