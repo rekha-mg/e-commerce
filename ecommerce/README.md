@@ -12,8 +12,10 @@ of themes, migrations, seeders, validations, ORM, API, Passport/ JWT token
  Creating an Customer panel with the understanding of all the concepts with the 
 integration of themes, use of API’s
 
-## 
-
+## composer create-project laravel/laravel ecommerce
+### php artisan make:model Role
+### php artisan make:seeder Roleseeder
+### php artisan db:seed --class=Roleseeder
 
 
 ### 
