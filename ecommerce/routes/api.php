@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/users', 'App\Http\Controllers\Usercontroller@displayAllusers');
+Route::get('/users/{user_id}', 'App\Http\Controllers\Usercontroller@displayOneuser');
+

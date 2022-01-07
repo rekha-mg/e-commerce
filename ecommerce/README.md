@@ -18,5 +18,8 @@ integration of themes, use of API’s
 ### php artisan db:seed --class=Roleseeder
 
 
-### 
+### Display all users / employees
+#### http://127.0.0.1:8000/api/users
+### Display any one  users  on user_id/ employees
+#### http://127.0.0.1:8000/api/users/1
 
