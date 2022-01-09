@@ -23,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/users', 'App\Http\Controllers\Usercontroller@displayAllusers');
 Route::get('/users/{user_id}', 'App\Http\Controllers\Usercontroller@displayOneuser');
 
+Route::get('/customers', 'App\Http\Controllers\CustomerController@displayAllcustomer');
+Route::get('/customer/{customer_id}', 'App\Http\Controllers\CustomerController@displayOnecustomer');
+Route::post('/customer', 'App\Http\Controllers\CustomerController@addNewCustomer');

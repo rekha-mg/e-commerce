@@ -23,3 +23,15 @@ integration of themes, use of API’s
 ### Display any one  users  on user_id/ employees
 #### http://127.0.0.1:8000/api/users/1
 
+### Display total customers
+#### http://127.0.0.1:8000/api/customers
+ 
+### Display perticular customers
+####  http://127.0.0.1:8000/api/customer/1
+### Add New User[ postman -params]
+#### http://127.0.0.1:8000/api/customer?customer_id=3&customer_name=manu
+#### Add address details
+#### http://127.0.0.1:8000/api/customer?customer_id=2&first_name=kavya&last_name=shree&user_name=kavya&password=kavya123&phone=8876543276
+
+ 
+
