@@ -67,55 +67,241 @@ class CustomerController extends Controller
     }
 
     public function addNewCustomer(Request $request){
-    	if($request->has('customer_id_fk') && $request->has('address_id') && $request->has('address1') && $request->has('address2') && $request->has('street') && $request->has('city') && $request->has('state') && $request->has('pincode'))
-    	// && $request->has('first_name') && $request->has('last_name') && $request->has('user_name') && $request->has('password')&& $request->has('phone'))
-    	{
-    		$customer_id=$request->input('customer_id_fk');
-    		/*$customer_name=$request->input('customer_name');
-    		$first_name=$request->input('first_name');
-    		$last_name=$request->input('last_name');
-    		$user_name=$request->input('user_name');
-    		$password=$request->input('password');
-    		$phone=$request->input('phone');*/
+	    $error="";
+		$customer_name=$request->input('customer_name');
+		$first_name=$request->input('first_name');
+		$last_name=$request->input('last_name');
+		$user_name=$request->input('user_name');
+		$password=$request->input('password');
+		$phone=$request->input('phone');
 
-    		$address_id=$request->input('address_id');
-    		$address1=$request->input('address1');
-    		$address2=$request->input('address2');
-    		$street=$request->input('street');
-    		$city=$request->input('city');
-    		$state=$request->input('state');
-    		$pincode=$request->input('pincode');
-    		try{
-    			/*$resp = DB::insert('insert into chits (chit_name,capital_amount,total_members,payment,duration,start_date,ending_date) values(?,?,?,?,?,?,?)',[$chit_name,$capital_amount,$total_members,$payment,$duration,$start_date,$ending_date]);
-    			Log::info('Inserted new chit :'. $resp); */
+		$address_id=$request->input('address_id');
+		$address1=$request->input('address1');
+		$address2=$request->input('address2');
+		$street=$request->input('street');
+		$city=$request->input('city');
+		$state=$request->input('state');
+		$pincode=$request->input('pincode');
+    	
+    	$customer_id=$request->input('customer_id_fk');
 
-    			// $resp=DB::insert('insert into customer(customer_id,customer_name) values (?,?)',[$customer_id,$customer_name]);
-    			// Log::info('Inserted new Customer :'.$resp);
-    		
-    			//$resp2=DB::insert('insert into customer_details(customer_id_fk,first_name,last_name,user_name,password,phone) values (?,?,?,?,?,?)',[$customer_id,$first_name,$last_name,$user_name,$password,$phone]);
-    			//Log::info('Inserted new customer details:'.$resp2);
+		if($customer_id==""){
+			$error+="Provide customer_id ";
+		} 
+		if( $first_name==""){
+			$error+="Provide first_name ";
+		}
+		if($last_name==""){
+			$error+="Provide last_name ";
+		} 
+		if($user_name==""){
+			$error+="Provide user_name ";
+		} 
+		if ($password==""){
+			$error+="Provide password ";
+		}
+		if($phone==""){
+			$error+="Provide phone number ";
+		} 
+		if($address_id==""){
+			$error+="Provide address id ";
+		}
+		if($address1==""){
+			$error+="Provide address1 ";
+		}
+		if($address2==""){
+			$error+="Provide address2 ";
+		}
+		if($city==""){
+			$error+="Provide city ";
+		}
+		if($state==""){
+			$error+="provid state";
+		}
+		if($pincode==""){
+			$error+="Provide pincode";
+		}
 
-    			$resp3=DB::insert('insert into customer_address(address_id,customer_id_fk,address1,address2,street,city,state,pincode) values (?,?,?,?,?,?,?,?)',[$address_id,$customer_id,$address1,$address2,$street,$city,$state,$pincode]);
-    			Log::info('Inserted new customer address'.$resp3);
-    		}
+		if($error){
+			return $this->sendResponse("false","",$error ,401);
+		} else{
+			try{
+			
+				$resp1=DB::insert('insert into customer(customer_id,customer_name) values (?,?)',[$customer_id,$customer_name]);
+				Log::info('Inserted new Customer :'.$resp1);
+			
+				$resp2=DB::insert('insert into customer_details(customer_id_fk,first_name,last_name,user_name,password,phone) values (?,?,?,?,?,?)',[$customer_id,$first_name,$last_name,$user_name,$password,$phone]);
+				Log::info('Inserted new customer details:'.$resp2);
+
+				$resp3=DB::insert('insert into customer_address(address_id,customer_id_fk,address1,address2,street,city,state,pincode) values (?,?,?,?,?,?,?,?)',[$address_id,$customer_id,$address1,$address2,$street,$city,$state,$pincode]);
+				Log::info('Inserted new customer address'.$resp3);
+				return $this->sendResponse("true",$customer_id,'data inserted successfully',200);
 
 
-    		catch(\PDOException $pex){
-				Log::critical('some error: '.print_r($pex->getMessage(),true)); //xampp off
-				return $this->sendResponse("false", "",'error related to database', 500);
-			}  
-			catch(\Exception $e){
+			} catch(\Exception $e) {
 				Log::critical('some error:'.print_r($e->getMessage(),true));
 				Log::critical('error line: '.print_r($e->getLine(), true));
 				return $this->sendResponse("false","",'some error in server',500);
-			}  		
-	}
-	else{
-				Log::warning('input data missing' .print_r($request->input('street'),true));
-    			return $this->sendResponse("input data missing",'', 'incorrect request', 500); //wrong field name
-    		}
-    			return $this->sendResponse("true",$resp3,'data inserted successfully', 201);
+			}  	
+		}
+
+				
    	
     }
+
+
+    public function updateCustomer(Request $request, $customer_id)
+    {
+    	$error="";
+		$customer_name=$request->input('customer_name');
+		 	
+    	if($customer_name==""){
+    		$error.="Provide customer name";
+    	}
+      	
+		if($error){
+			return $this->sendResponse("false","",$error ,401);
+		} else{
+			try{
+				$resp1 = DB::update('update customer set customer_name = ? where customer_id = ?', [$customer_name,$customer_id]);
+    			Log::info('updated customer :'. $resp1);
+    					
+				return $this->sendResponse("true",$customer_id,'data updated successfully',200);
+
+			} catch(\Exception $e) {
+				Log::critical('some error:'.print_r($e->getMessage(),true));
+				Log::critical('error line: '.print_r($e->getLine(), true));
+				return $this->sendResponse("false","",'some error in server',500);
+			}  	
+		}
+
+
+
+         
+    }
+    public function updateCustomerDetails(Request $request, $customer_id)
+    {
+    	$error="";
+	
+		$first_name=$request->input('first_name');
+		$last_name=$request->input('last_name');
+		$user_name=$request->input('user_name');
+		$password=$request->input('password');
+		$phone=$request->input('phone');
+
+		  	
+    	if( $first_name==""){
+			$error.="Provide first_name ";
+		}
+		if($last_name==""){
+			$error.="Provide last_name ";
+		} 
+		if($user_name==""){
+			$error.="Provide user_name ";
+		} 
+		if ($password==""){
+			$error.="Provide password ";
+		}
+		if($phone==""){
+			$error.="Provide phone number ";
+		} 
+		
+		if($error){
+			return $this->sendResponse("false","",$error ,401);
+		} else{
+			try{
+					$resp2 = DB::update('update customer_details set first_name = ?, last_name=?, user_name=?, password=?, phone=? where customer_id_fk = ?', [$first_name,$last_name,$user_name, $password, $phone, $customer_id]);
+	    			Log::info('updated customer :'. $resp2);
+    								
+				return $this->sendResponse("true",$customer_id,'data updated successfully',200);
+				} catch(\Exception $e) {
+					Log::critical('some error:'.print_r($e->getMessage(),true));
+					Log::critical('error line: '.print_r($e->getLine(), true));
+					return $this->sendResponse("false","",'some error in server',500);
+				}  	
+			}
+        
+    }
+
+    
+    /*public function updateCustomerDetails(Request $request, $customer_id)
+    {
+    	$error="";
+	
+		$first_name=$request->input('first_name');
+		$last_name=$request->input('last_name');
+		$user_name=$request->input('user_name');
+		$password=$request->input('password');
+		$phone=$request->input('phone');
+
+		$address_id=$request->input('address_id');
+		$address1=$request->input('address1');
+		$address2=$request->input('address2');
+		$street=$request->input('street');
+		$city=$request->input('city');
+		$state=$request->input('state');
+		$pincode=$request->input('pincode');
+    	
+    	
+    	if($customer_name==""){
+    		$error.="Provide customer name";
+    	}
+      	if( $first_name==""){
+			$error.="Provide first_name ";
+		}
+		if($last_name==""){
+			$error.="Provide last_name ";
+		} 
+		if($user_name==""){
+			$error.="Provide user_name ";
+		} 
+		if ($password==""){
+			$error.="Provide password ";
+		}
+		if($phone==""){
+			$error.="Provide phone number ";
+		} 
+		/*if($address_id==""){
+			$error.="Provide address id ";
+		}
+		if($address1==""){
+			$error.="Provide address1 ";
+		}
+		if($address2==""){
+			$error.="Provide address2 ";
+		}
+		if($city==""){
+			$error.="Provide city ";
+		}
+		if($state==""){
+			$error.="provid state";
+		}
+		if($pincode==""){
+			$error.="Provide pincode";
+		}
+
+		if($error){
+			return $this->sendResponse("false","",$error ,401);
+		} else{
+			try{
+				$resp1 = DB::update('update customer set customer_name = ? where customer_id = ?', [$customer_name,$customer_id]);
+    			Log::info('updated customer :'. $resp1);
+
+    		
+						
+				return $this->sendResponse("true",$customer_id,'data updated successfully',200);
+
+
+			} catch(\Exception $e) {
+				Log::critical('some error:'.print_r($e->getMessage(),true));
+				Log::critical('error line: '.print_r($e->getLine(), true));
+				return $this->sendResponse("false","",'some error in server',500);
+			}  	
+		}
+
+
+
+         
+    }*/
 
 }

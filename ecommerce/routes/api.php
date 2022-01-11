@@ -26,3 +26,5 @@ Route::get('/users/{user_id}', 'App\Http\Controllers\Usercontroller@displayOneus
 Route::get('/customers', 'App\Http\Controllers\CustomerController@displayAllcustomer');
 Route::get('/customer/{customer_id}', 'App\Http\Controllers\CustomerController@displayOnecustomer');
 Route::post('/customer', 'App\Http\Controllers\CustomerController@addNewCustomer');
+Route::patch('/customer/{customer_id}', 'App\Http\Controllers\CustomerController@updateCustomer');
+Route::patch('/customerDetail/{customer_id}', 'App\Http\Controllers\CustomerController@updateCustomerDetails');
