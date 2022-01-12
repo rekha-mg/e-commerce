@@ -211,9 +211,9 @@ class CustomerController extends Controller
 		} else{
 			try{
 					$resp2 = DB::update('update customer_details set first_name = ?, last_name=?, user_name=?, password=?, phone=? where customer_id_fk = ?', [$first_name,$last_name,$user_name, $password, $phone, $customer_id]);
-	    			Log::info('updated customer :'. $resp2);
-    								
-				return $this->sendResponse("true",$customer_id,'data updated successfully',200);
+	    			Log::info('updated customer details:'. $resp2);
+    				return $this->sendResponse("true",$customer_id,'customer details data updated successfully',200);
+    				
 				} catch(\Exception $e) {
 					Log::critical('some error:'.print_r($e->getMessage(),true));
 					Log::critical('error line: '.print_r($e->getLine(), true));
@@ -223,17 +223,11 @@ class CustomerController extends Controller
         
     }
 
-    
-    /*public function updateCustomerDetails(Request $request, $customer_id)
+
+    public function updateCustomerAddress(Request $request, $customer_id)
     {
     	$error="";
 	
-		$first_name=$request->input('first_name');
-		$last_name=$request->input('last_name');
-		$user_name=$request->input('user_name');
-		$password=$request->input('password');
-		$phone=$request->input('phone');
-
 		$address_id=$request->input('address_id');
 		$address1=$request->input('address1');
 		$address2=$request->input('address2');
@@ -241,27 +235,8 @@ class CustomerController extends Controller
 		$city=$request->input('city');
 		$state=$request->input('state');
 		$pincode=$request->input('pincode');
-    	
-    	
-    	if($customer_name==""){
-    		$error.="Provide customer name";
-    	}
-      	if( $first_name==""){
-			$error.="Provide first_name ";
-		}
-		if($last_name==""){
-			$error.="Provide last_name ";
-		} 
-		if($user_name==""){
-			$error.="Provide user_name ";
-		} 
-		if ($password==""){
-			$error.="Provide password ";
-		}
-		if($phone==""){
-			$error.="Provide phone number ";
-		} 
-		/*if($address_id==""){
+    	    	
+    	if($address_id==""){
 			$error.="Provide address id ";
 		}
 		if($address1==""){
@@ -284,24 +259,17 @@ class CustomerController extends Controller
 			return $this->sendResponse("false","",$error ,401);
 		} else{
 			try{
-				$resp1 = DB::update('update customer set customer_name = ? where customer_id = ?', [$customer_name,$customer_id]);
-    			Log::info('updated customer :'. $resp1);
-
-    		
-						
-				return $this->sendResponse("true",$customer_id,'data updated successfully',200);
-
-
-			} catch(\Exception $e) {
-				Log::critical('some error:'.print_r($e->getMessage(),true));
-				Log::critical('error line: '.print_r($e->getLine(), true));
-				return $this->sendResponse("false","",'some error in server',500);
-			}  	
-		}
-
-
-
-         
-    }*/
+					$resp3 = DB::update('update customer_address set address1 = ?, address2=?,street=?,city=?,state=?,pincode=? where customer_id_fk = ?', [$address1,$address2,$street,$city,$state,$pincode,$customer_id]);
+	    			Log::info('updated customer :'. $resp3);
+   								
+					return $this->sendResponse("true",$customer_id,'Address data updated successfully',200);
+				} catch(\Exception $e) {
+					Log::critical('some error:'.print_r($e->getMessage(),true));
+					Log::critical('error line: '.print_r($e->getLine(), true));
+					return $this->sendResponse("false","",'some error in server',500);
+				}  	
+			}
+       
+    }
 
 }
