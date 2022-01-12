@@ -35,3 +35,4 @@ Route::patch('/customerAddress/{customer_id}', 'App\Http\Controllers\CustomerCon
 Route::get('/products', 'App\Http\Controllers\ProductController@displayAllProducts');
 Route::get('/product/{product_id}', 'App\Http\Controllers\ProductController@displayOneProduct');
 Route::post('/product', 'App\Http\Controllers\ProductController@addNewProduct');
+Route::patch('/product/{product_id}', 'App\Http\Controllers\ProductController@updateProduct');
