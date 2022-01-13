@@ -22,16 +22,13 @@ class ProductController extends Controller
 	public function displayAllProducts(Request $request)
 	{
 		Log::info('Display all product: ');
-
 		try {
 				$res = DB::select('select count(*) as total from product');
 				Log::info('Total number of product ' . $res[0]->total);
 				$total_product = $res[0]->total;
-				if ($total_product > 5) {
-					$total_product = DB::select('select * from product limit ?', [$limit]);
-				} else {
-					$total_product = DB::select('select *  from product');
-				}
+				
+				$total_product = DB::select('select * from product where status=?',["active"]);
+				
 			} catch (\PDOException $pex) {
 	           	Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
 	           	return $this->sendResponse("false", "", 'error related to database', 500);
@@ -208,6 +205,25 @@ class ProductController extends Controller
 
 		}
 	}
+
+	public function deleteProduct($product_id){
+    	$error="";
+    	$status="inactive";
+    	if($product_id==""){
+    		$error="Provide product id";
+    	}
+    	try{
+    		$resp1=DB::update('update product  set status=? where product_id=?',[$status,$product_id]);
+    		return $this->sendResponse("true",$resp1,'customer data deleted',200);
+    	}
+    	catch(\Exception $e){
+            Log::critical('some error:'.print_r($e->getMessage(),true));
+            Log::critical('error line: '.print_r($e->getLine(),true));
+            return $this->sendResponse("false","",'some error in server',500);
+    	}  	
+   			return $this->sendResponse("false","",'some error in input',500);
+   			Log::info('deleted product details: '.$product_id);
+    }
 
 
 

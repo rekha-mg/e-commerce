@@ -30,9 +30,12 @@ Route::post('/customer', 'App\Http\Controllers\CustomerController@addNewCustomer
 Route::patch('/customer/{customer_id}', 'App\Http\Controllers\CustomerController@updateCustomer');
 Route::patch('/customerDetail/{customer_id}', 'App\Http\Controllers\CustomerController@updateCustomerDetails');
 Route::patch('/customerAddress/{customer_id}', 'App\Http\Controllers\CustomerController@updateCustomerAddress');
+Route::patch('/customers/{customer_id}', 'App\Http\Controllers\CustomerController@deleteCustomer');
 //------------------------------- products api -----------------------------------//
 
 Route::get('/products', 'App\Http\Controllers\ProductController@displayAllProducts');
 Route::get('/product/{product_id}', 'App\Http\Controllers\ProductController@displayOneProduct');
 Route::post('/product', 'App\Http\Controllers\ProductController@addNewProduct');
 Route::patch('/product/{product_id}', 'App\Http\Controllers\ProductController@updateProduct');
+Route::patch('/products/{product_id}', 'App\Http\Controllers\ProductController@deleteProduct');
+

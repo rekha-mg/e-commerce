@@ -29,9 +29,9 @@ class CustomerController extends Controller
 			Log::info('Total number of customers ' . $res[0]->total);
 			$total_customer = $res[0]->total;
 			if ($total_customer > 5) {
-				$total_customer = DB::select('select * from users limit ?', [$limit]);
+				$total_customer = DB::select('select * from customer limit ?', [$limit]);
 			} else {
-				$users_list = DB::select('select *  from users');
+				$users_list = DB::select('select *  from customer where status=?',['active']);
 			}
 		} catch (\PDOException $pex) {
            Log::critical('some error: ' . print_r($pex->getMessage(), true)); //xampp off
@@ -213,7 +213,7 @@ class CustomerController extends Controller
 					$resp2 = DB::update('update customer_details set first_name = ?, last_name=?, user_name=?, password=?, phone=? where customer_id_fk = ?', [$first_name,$last_name,$user_name, $password, $phone, $customer_id]);
 	    			Log::info('updated customer details:'. $resp2);
     				return $this->sendResponse("true",$customer_id,'customer details data updated successfully',200);
-    				
+
 				} catch(\Exception $e) {
 					Log::critical('some error:'.print_r($e->getMessage(),true));
 					Log::critical('error line: '.print_r($e->getLine(), true));
@@ -270,6 +270,26 @@ class CustomerController extends Controller
 				}  	
 			}
        
+    }
+
+    public function deleteCustomer($customer_id){
+    	$error="";
+    	$status="inactive";
+    	if($customer_id==""){
+    		$error="Provide customer id";
+    	}
+    	try{
+    		$resp1=DB::update('update customer set status=? where customer_id=?',[$status,$customer_id]);
+    		return $this->sendResponse("true",$resp1,'customer data deleted',200);
+    	}
+    	catch(\Exception $e){
+            Log::critical('some error:'.print_r($e->getMessage(),true));
+            Log::critical('error line: '.print_r($e->getLine(),true));
+            return $this->sendResponse("false","",'some error in server',500);
+    	}  	
+   
+   			return $this->sendResponse("false","",'some error in input',500);
+   			Log::info('deleted customer details: '.$customer_id);
     }
 
 }
