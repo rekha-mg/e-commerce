@@ -39,3 +39,15 @@ Route::post('/product', 'App\Http\Controllers\ProductController@addNewProduct');
 Route::patch('/product/{product_id}', 'App\Http\Controllers\ProductController@updateProduct');
 Route::patch('/products/{product_id}', 'App\Http\Controllers\ProductController@deleteProduct');
 
+//-----------------------------Employee----------------------------------------------//
+Route::get('/employee', 'App\Http\Controllers\EmployeeController@displayAllEmployee');
+Route::get('/employee/{employee_id}', 'App\Http\Controllers\EmployeeController@displayOneEmployee');
+
+
+//-------------------------------Orders Details-------------------------------------------//
+
+Route::get('/orders', 'App\Http\Controllers\OrderController@displayAllOrders');
+Route::get('/order/{order_id}', 'App\Http\Controllers\OrderController@displayOneOrder');
+Route::post('/order', 'App\Http\Controllers\OrderController@addNewOrder');
+Route::patch('/orders/{order_id}', 'App\Http\Controllers\OrderController@updateOrder');
+Route::patch('/order/{order_id}', 'App\Http\Controllers\OrderController@deleteOrder');

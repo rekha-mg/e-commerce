@@ -86,40 +86,40 @@ class CustomerController extends Controller
     	$customer_id=$request->input('customer_id_fk');
 
 		if($customer_id==""){
-			$error+="Provide customer_id ";
+			$error.="Provide customer_id ";
 		} 
 		if( $first_name==""){
-			$error+="Provide first_name ";
+			$error.="Provide first_name ";
 		}
 		if($last_name==""){
-			$error+="Provide last_name ";
+			$error.="Provide last_name ";
 		} 
 		if($user_name==""){
-			$error+="Provide user_name ";
+			$error.="Provide user_name ";
 		} 
 		if ($password==""){
-			$error+="Provide password ";
+			$error.="Provide password ";
 		}
 		if($phone==""){
-			$error+="Provide phone number ";
+			$error.="Provide phone number ";
 		} 
 		if($address_id==""){
-			$error+="Provide address id ";
+			$error.="Provide address id ";
 		}
 		if($address1==""){
-			$error+="Provide address1 ";
+			$error.="Provide address1 ";
 		}
 		if($address2==""){
-			$error+="Provide address2 ";
+			$error.="Provide address2 ";
 		}
 		if($city==""){
-			$error+="Provide city ";
+			$error.="Provide city ";
 		}
 		if($state==""){
-			$error+="provid state";
+			$error.="provid state";
 		}
 		if($pincode==""){
-			$error+="Provide pincode";
+			$error.="Provide pincode";
 		}
 
 		if($error){
