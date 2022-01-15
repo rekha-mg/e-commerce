@@ -35,3 +35,13 @@ integration of themes, use of API’s
 
  
 
+# Installing UI comonents 
+
+
+composer require laravel/ui
+- This wont install if php version is less 7.4
+
+php artisan ui vue
+- This might give error related to js/ folder due to laravel 7 & 8 folder strcuture
+- To fix it, copy public/js folder into resources/js
+Ref: https://levelup.gitconnected.com/how-to-set-up-and-use-vue-in-your-laravel-8-app-2dd0f174e1f8
