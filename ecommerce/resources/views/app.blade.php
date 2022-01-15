@@ -15,8 +15,7 @@
 </head>
 <body>
 <div id="app">
-    laoding welcome
-   
 </div>
+<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 </body>
 </html>
