@@ -1,5 +1,9 @@
 <template>
-    <div>Hello, Example Component!</div>
+    <div>
+
+    This is home page.
+
+    </div>
 </template>
 
 <script>

@@ -19,6 +19,7 @@
   "dependencies": {
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.3"
   }
 }
